@@ -4,12 +4,14 @@ public class AtBash {
 
     public static String atbash(String input){
         return input.chars().mapToDouble(c->(double)c).map(c ->
-                (int)(3/((((c-65)-12.5)/13.0*((c-65)-12.5)/13.0)+2))*(2*'A'+25-c) // selects uppercase letters and reverses them
-                +(int)(3/((((c-97)-12.5)/13.0*((c-97)-12.5)/13.0)+2))*(2*'a'+25-c) // selects lowercase letters and reverses them
+                (int)(3/((((c-65)-12.5)/13.0*((c-65)-12.5)/13.0)+2)) // selects uppercase letters
+                        *(2*'A'+25-c)  // and reverses them
+                +(int)(3/((((c-97)-12.5)/13.0*((c-97)-12.5)/13.0)+2)) // selects lowercase letters
+                        *(2*'a'+25-c) // and reverses them
                 +(1
-                   -(int)(3/((((c-65)-12.5)/13.0*((c-65)-12.5)/13.0)+2))
-                   -(int)(3/((((c-97)-12.5)/13.0*((c-97)-12.5)/13.0)+2))
-                )*c) // non-letters unaffected (inverse of the previous two selections)
+                   -(int)(3/((((c-65)-12.5)/13.0*((c-65)-12.5)/13.0)+2)) // deselects uppercase letters,
+                   -(int)(3/((((c-97)-12.5)/13.0*((c-97)-12.5)/13.0)+2)) // deselects lowercase letters,
+                )*c) // and leaves non-letters unaffected
                 .mapToObj(c -> Character.valueOf((char)c).toString())
                 .collect(Collectors.joining());
     }
